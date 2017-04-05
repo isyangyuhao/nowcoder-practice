@@ -1,0 +1,14 @@
+/Debug
+*.txt
+*.sql
+*.dsp
+*.dsw
+*.plg
+*.exe
+*.pch
+*.obj
+*.ilk
+*.ncb
+*.opt
+*.pdb
+*.idb
