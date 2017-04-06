@@ -7,16 +7,16 @@ void Print(const char &c) {
 	cout << c << " ";
 }
 
-//¶¨ÒåÊ÷½áµã
+//å®šä¹‰æ ‘ç»“ç‚¹
 template <typename ElemType> struct BTnode {
 	ElemType data;
 	BTnode<ElemType> *Lchild, *Rchild;
 };
 
-//¶¨Òå¶ş²æÊ÷Àà
+//å®šä¹‰äºŒå‰æ ‘ç±»
 template <typename ElemType> class BinaryTree {
 private :
-	BTnode<ElemType> *root;  //¶¨Òå¸ù½Úµã
+	BTnode<ElemType> *root;  //å®šä¹‰æ ¹èŠ‚ç‚¹
 	void _Create(BTnode<ElemType> * &T, ElemType ch[], const ElemType &c, int &i);
 	BTnode<ElemType>* _Locate(BTnode<ElemType> *T, const ElemType e);
 	int _Depth(BTnode<ElemType> *T);
@@ -32,7 +32,7 @@ public :
 	void InorderTraverseNonRecursive(void (*visit)(const ElemType &e));
 };
 ////////////////////////////////////////////////////////
-//´´½¨¶ş²æÊ÷º¯Êı
+//åˆ›å»ºäºŒå‰æ ‘å‡½æ•°
 template <typename ElemType> void BinaryTree<ElemType>::_Create(BTnode<ElemType> * &T, ElemType ch[], const ElemType &c, int &i) {
 	if (ch[i] == c) {
 		T = NULL;
@@ -43,13 +43,13 @@ template <typename ElemType> void BinaryTree<ElemType>::_Create(BTnode<ElemType>
 		_Create(T->Rchild, ch, c, ++i);
 	}
 }
-//´´½¨¶ş²æÊ÷½Ó¿Úº¯Êı
+//åˆ›å»ºäºŒå‰æ ‘æ¥å£å‡½æ•°
 template <typename ElemType> void BinaryTree<ElemType>::Create(ElemType ch[], const ElemType &c) {
 	int i = 0;
 	_Create(root, ch, c, i);
 }
 //////////////////////////////////////////
-//´´½¨¶ş²æÊ÷²éÕÒº¯Êı
+//åˆ›å»ºäºŒå‰æ ‘æŸ¥æ‰¾å‡½æ•°
 template <typename ElemType> BTnode<ElemType>* BinaryTree<ElemType>::_Locate(BTnode<ElemType> *T, const ElemType e) {
 	if (!T || T->data == e) {
 		return T;
@@ -62,7 +62,7 @@ template <typename ElemType> BTnode<ElemType>* BinaryTree<ElemType>::_Locate(BTn
 	q = _Locate(T->Rchild, e);
 	return q;
 }
-//Êä³ö¶ş²æÊ÷¶ù×Ó½áµãº¯Êı
+//è¾“å‡ºäºŒå‰æ ‘å„¿å­ç»“ç‚¹å‡½æ•°
 template <typename ElemType> void BinaryTree<ElemType>::Child(const ElemType &e) {
 	if (_Locate(root, e)) {
 		if (_Locate(root,e)->Lchild) {
@@ -81,7 +81,7 @@ template <typename ElemType> void BinaryTree<ElemType>::Child(const ElemType &e)
 	}
 }
 /////////////////////////////////////
-//Çó¶ş²æÊ÷Éî¶Èº¯Êı
+//æ±‚äºŒå‰æ ‘æ·±åº¦å‡½æ•°
 template <typename ElemType> int BinaryTree<ElemType>::_Depth(BTnode<ElemType> *T) {
 	if (!T) {
 		return 0;
@@ -90,12 +90,12 @@ template <typename ElemType> int BinaryTree<ElemType>::_Depth(BTnode<ElemType> *
 	int h2 = _Depth(T->Rchild);
 	return h1 > h2 ? h1+1 : h2+1;
 }
-//Çó¶ş²æÊ÷Éî¶È½Ó¿Úº¯Êı
+//æ±‚äºŒå‰æ ‘æ·±åº¦æ¥å£å‡½æ•°
 template <typename ElemType> int BinaryTree<ElemType>::Depth() {
 	return _Depth(root);
 }
 ////////////////////////////////////////
-//Çó¶ş²æÊ÷Ò¶×Ó½áµã¸öÊıº¯Êı
+//æ±‚äºŒå‰æ ‘å¶å­ç»“ç‚¹ä¸ªæ•°å‡½æ•°
 template <typename ElemType> int BinaryTree<ElemType>::_Leafs(BTnode<ElemType> *T) {
 	if (!T) {
 		return 0;
@@ -107,12 +107,12 @@ template <typename ElemType> int BinaryTree<ElemType>::_Leafs(BTnode<ElemType> *
 	int h2 = _Leafs(T->Rchild);
 	return h1 + h2;
 }
-//Çó¶ş²æÊ÷Ò¶×Ó½áµã¸öÊı½Ó¿Úº¯Êı
+//æ±‚äºŒå‰æ ‘å¶å­ç»“ç‚¹ä¸ªæ•°æ¥å£å‡½æ•°
 template <typename ElemType> int BinaryTree<ElemType>::Leafs() {
 	return _Leafs(root);
 }
 ///////////////////////////////////////////
-//µİ¹éÏÈĞò±éÀú¶ş²æÊ÷
+//é€’å½’å…ˆåºéå†äºŒå‰æ ‘
 template <typename ElemType> void BinaryTree<ElemType>::_PreorderTraverse(BTnode<ElemType> *T) {
 	if (T) {
 		cout << T->data << " ";
@@ -120,17 +120,17 @@ template <typename ElemType> void BinaryTree<ElemType>::_PreorderTraverse(BTnode
 		_PreorderTraverse(T->Rchild);
 	}
 }
-//µİ¹éÏÈĞò±éÀú¶ş²æÊ÷½Ó¿Úº¯Êı
+//é€’å½’å…ˆåºéå†äºŒå‰æ ‘æ¥å£å‡½æ•°
 template <typename ElemType> void BinaryTree<ElemType>::PreorderTraverse() {
 	_PreorderTraverse(root);
 }
 ////////////////////////////////////////////
-//ÀûÓÃÕ»ÖĞĞò±éÀú¶ş²æÊ÷
+//åˆ©ç”¨æ ˆä¸­åºéå†äºŒå‰æ ‘
 template <class ElemType>
 void BinaryTree<ElemType> ::InorderTraverseNonRecursive(void (*visit)(const ElemType &e))
 { 
     stack<BTnode<ElemType> *> S;
-    S.push (root); //¸ùÖ¸Õë½øÕ»
+    S.push (root); //æ ¹æŒ‡é’ˆè¿›æ ˆ
     
     while (!S.empty ()) {
         BTnode<ElemType> *p;
@@ -138,12 +138,12 @@ void BinaryTree<ElemType> ::InorderTraverseNonRecursive(void (*visit)(const Elem
 
         while (p) {
             p = p->Lchild;
-            S.push(p); // Ïò×ó×ßµ½¾¡Í·
+            S.push(p); // å‘å·¦èµ°åˆ°å°½å¤´
         }
         
-        S.pop(); // ¿ÕÖ¸ÕëÍËÕ»
+        S.pop(); // ç©ºæŒ‡é’ˆé€€æ ˆ
         
-        if (!S.empty()){ // ·ÃÎÊ½áµã,ÏòÓÒÒ»²½
+        if (!S.empty()){ // è®¿é—®ç»“ç‚¹,å‘å³ä¸€æ­¥
             p = S.top ();
             S.pop();
             visit(p->data);
@@ -158,28 +158,28 @@ int main(void) {
 
 	char ch[17] = {'a','b','d','#','#','e','g','#','h','#','#','#','c','f','#','#','#'};
 
-	cout << "Êä³öb½áµãµÄ×óÓÒ×Ó½Úµã : " << endl;
+	cout << "è¾“å‡ºbç»“ç‚¹çš„å·¦å³å­èŠ‚ç‚¹ : " << endl;
 	tree.Create(ch, '#');
 	tree.Child('b');
 
 	cout << endl;
 
-	cout << "¸Ã¶ş²æÊ÷µÄÉî¶ÈÎª : ";
+	cout << "è¯¥äºŒå‰æ ‘çš„æ·±åº¦ä¸º : ";
 	cout << tree.Depth() << endl;
 	
 	cout << endl;
 
-	cout << "¸Ã¶ş²æÊ÷µÄÒ¶×Ó½áµãÊıÎª : ";
+	cout << "è¯¥äºŒå‰æ ‘çš„å¶å­ç»“ç‚¹æ•°ä¸º : ";
 	cout << tree.Leafs() << endl;
 	
 	cout << endl;
 
-	cout << "µİ¹éÏÈĞò±éÀú¶ş²æÊ÷ : ";
+	cout << "é€’å½’å…ˆåºéå†äºŒå‰æ ‘ : ";
 	tree.PreorderTraverse();
 
 	cout << endl;
 
-	cout << "ÀûÓÃÕ»ÖĞĞò±éÀú¶ş²æÊ÷ : ";
+	cout << "åˆ©ç”¨æ ˆä¸­åºéå†äºŒå‰æ ‘ : ";
 	tree.InorderTraverseNonRecursive(Print);
 	
 	cout << endl;

@@ -14,21 +14,21 @@ int main(void) {
 	BTNode<char> *p, *q;
 	int nodeNum = 0;
 
-	cout << "Ê¹ÓÃÏÈÐò·½Ê½ËùÐè½¨Ê÷µÄÊý¾Ý(¿ÕÖ¸ÕëÓÃ#±íÊ¾) : " << endl;
+	cout << "ä½¿ç”¨å…ˆåºæ–¹å¼æ‰€éœ€å»ºæ ‘çš„æ•°æ®(ç©ºæŒ‡é’ˆç”¨#è¡¨ç¤º) : " << endl;
 	cin >> ch1;
 	bt1.Create1(ch1, c);
 	cout << endl;
 	
 	char loc = 'B';
 	p = bt1.Locate(loc);
-	cout << "B½áµã×óº¢×ÓµÄÖµÎª : ";
+	cout << "Bç»“ç‚¹å·¦å­©å­çš„å€¼ä¸º : ";
 	q = bt1.LeftChild(p);
 	if(q) {
 		cout << q->data << endl;
 	} else {
 		cout << "not found !" << endl;
 	}
-	cout << "B½áµãÓÒº¢×ÓµÄÖµÎª : ";
+	cout << "Bç»“ç‚¹å³å­©å­çš„å€¼ä¸º : ";
 	q = bt1.RightChild(p);
 	if(q) {
 		cout << q->data << endl;
@@ -36,15 +36,15 @@ int main(void) {
 		cout << "not found !" << endl;
 	}
 
-	cout << "¸Ã¶þ²æÊ÷µÄÉî¶ÈÎª : " << bt1.Depth() << endl;
+	cout << "è¯¥äºŒå‰æ ‘çš„æ·±åº¦ä¸º : " << bt1.Depth() << endl;
 
-	cout << "¸Ã¶þ²æÊ÷Ò¶×Ó½áµã¸öÊýÎª : " << bt1.CountLeaf() << endl;
+	cout << "è¯¥äºŒå‰æ ‘å¶å­ç»“ç‚¹ä¸ªæ•°ä¸º : " << bt1.CountLeaf() << endl;
 
-	cout << "µÝ¹é±éÀú : " << endl;
+	cout << "é€’å½’éåŽ† : " << endl;
 	bt1.PreorderTraverse(Print);
 	cout << endl;
 
-	cout << "·ÇµÝ¹é±éÀú : " << endl;
+	cout << "éžé€’å½’éåŽ† : " << endl;
 	bt1.InorderTraverseNonRecursive(Print); 
 
 	cout << endl;

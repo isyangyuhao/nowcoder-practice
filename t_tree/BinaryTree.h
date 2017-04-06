@@ -4,30 +4,30 @@
 #include <queue>
 using namespace std;
 
-//¶ş²æÁ´±í½áµã½á¹¹ 
+//äºŒå‰é“¾è¡¨ç»“ç‚¹ç»“æ„ 
 template<class ElemType>
 struct BTNode
 {
-    ElemType         data;        //½áµãÖµ
-    BTNode<ElemType> *lchild;    //×óº¢×Ó½áµãÖ¸Õë
-    BTNode<ElemType> *rchild;    //ÓÒº¢×Ó½áµãÖ¸Õë
+    ElemType         data;        //ç»“ç‚¹å€¼
+    BTNode<ElemType> *lchild;    //å·¦å­©å­ç»“ç‚¹æŒ‡é’ˆ
+    BTNode<ElemType> *rchild;    //å³å­©å­ç»“ç‚¹æŒ‡é’ˆ
 };
 
-//¶ş²æÁ´±íÀà    
+//äºŒå‰é“¾è¡¨ç±»    
 template<class ElemType>
 class BinaryTree
 {
 public:
-    // ¹¹Ôìº¯Êı 
+    // æ„é€ å‡½æ•° 
     BinaryTree():m_root(NULL){} 
     
-    //¿½±´¹¹Ôì
+    //æ‹·è´æ„é€ 
     BinaryTree(const BinaryTree &rhs) 
     {
         m_root = _Copy (rhs.m_root);
     }
 
-    //¸³ÖµÖØÔØ 
+    //èµ‹å€¼é‡è½½ 
     BinaryTree& operator=(const BinaryTree &rhs) 
     {
         if (&rhs == this)
@@ -38,173 +38,173 @@ public:
         return *this;
     }
 
-    //Îö¹¹º¯Êı 
+    //ææ„å‡½æ•° 
     ~BinaryTree() 
     {
         _Destroy(m_root);
     }
 
-    //°´ÒÔÏÈĞò´ÎĞòÊäÈë½áµãÖµµÄ·½Ê½½¨Á¢¶ş²æÊ÷µÄ½Ó¿Úº¯Êı
+    //æŒ‰ä»¥å…ˆåºæ¬¡åºè¾“å…¥ç»“ç‚¹å€¼çš„æ–¹å¼å»ºç«‹äºŒå‰æ ‘çš„æ¥å£å‡½æ•°
     void Create1(ElemType ch[],const ElemType &endChar);
     
-    //ÒÔ¶ş²æÊ÷µÄÏÈĞòºÍÖĞĞò´ÎĞò½¨Á¢¶ş²æÊ÷µÄ½Ó¿Úº¯Êı
+    //ä»¥äºŒå‰æ ‘çš„å…ˆåºå’Œä¸­åºæ¬¡åºå»ºç«‹äºŒå‰æ ‘çš„æ¥å£å‡½æ•°
     void Create2(ElemType ch1[],ElemType ch2[],int );
   
-    //ÖÃ¿Õ¶ş²æÊ÷
+    //ç½®ç©ºäºŒå‰æ ‘
     void Clear() 
     { 
         _Destroy(m_root);
     }
 
-    //ÅĞ¶Ï¶ş²æÊ÷ÊÇ·ñÎª¿Õ
+    //åˆ¤æ–­äºŒå‰æ ‘æ˜¯å¦ä¸ºç©º
     bool IsEmpty() const 
     {
         return m_root == NULL;
     }
 
-    //·µ»Ø¸ù½áµãµÄÖ¸Õë
+    //è¿”å›æ ¹ç»“ç‚¹çš„æŒ‡é’ˆ
     BTNode<ElemType>* Root() const 
     { 
         return m_root;
     }
 
-    //·µ»Ø¶ş²æÊ÷TÖĞÔªËØÖµÎªeµÄ½áµãµÄÖ¸Õë    
+    //è¿”å›äºŒå‰æ ‘Tä¸­å…ƒç´ å€¼ä¸ºeçš„ç»“ç‚¹çš„æŒ‡é’ˆ    
     BTNode<ElemType>* Locate(ElemType &e) 
     {
         return _Locate (m_root, e);
     }
 
-    // Çó¶ş²æÊ÷Éî¶È 
+    // æ±‚äºŒå‰æ ‘æ·±åº¦ 
     int Depth() 
     {
         return _Depth(m_root);
     }
 
-	///////////////////////////ÇóÒ¶×Ó½áµãÊı////////////////////////////////////
-	int CountLeaf()
-	{
-		return _CountLeaf(m_root);
-	}
-	///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////æ±‚å¶å­ç»“ç‚¹æ•°////////////////////////////////////
+    int CountLeaf()
+    {
+        return _CountLeaf(m_root);
+    }
+    ///////////////////////////////////////////////////////////////////////////
 
-    //·µ»ØÓÉÖ¸ÕëpÖ¸ÏòµÄ½áµãµÄË«Ç×½áµã,
+    //è¿”å›ç”±æŒ‡é’ˆpæŒ‡å‘çš„ç»“ç‚¹çš„åŒäº²ç»“ç‚¹,
     BTNode<ElemType>* Parent(BTNode<ElemType> *p) 
     {
         return _Parent(m_root, p);
     }
 
-    //·µ»Ø½áµãµÄ×óº¢×Ó½áµã    
+    //è¿”å›ç»“ç‚¹çš„å·¦å­©å­ç»“ç‚¹    
     BTNode<ElemType>* LeftChild(BTNode<ElemType> *p) 
     {
         return p->lchild;
     }
 
-    //·µ»Ø½áµãµÄÓÒº¢×Ó½áµã
+    //è¿”å›ç»“ç‚¹çš„å³å­©å­ç»“ç‚¹
     BTNode<ElemType>* RightChild(BTNode<ElemType> *p) 
     {
         return p->rchild;
     }
-    //·µ»Ø½áµãµÄ×óĞÖµÜ½áµã
+    //è¿”å›ç»“ç‚¹çš„å·¦å…„å¼Ÿç»“ç‚¹
     BTNode<ElemType>* LeftSibling (BTNode<ElemType> *p);     
    
-    //·µ»Ø½áµãµÄÓÒĞÖµÜ½áµã 
+    //è¿”å›ç»“ç‚¹çš„å³å…„å¼Ÿç»“ç‚¹ 
     BTNode<ElemType>* RightSibling (BTNode<ElemType> *p);       
 
-   //ÏÈĞòµİ¹é±éÀú¶ş²æÊ÷µÄ½Ó¿Úº¯Êı   
+   //å…ˆåºé€’å½’éå†äºŒå‰æ ‘çš„æ¥å£å‡½æ•°   
     void PreorderTraverse (void (*visit)(const ElemType &));   
 
-    //ÏÈĞò·Çµİ¹é±éÀú¶ş²æÊ÷µÄ½Ó¿Úº¯Êı                                                                
+    //å…ˆåºéé€’å½’éå†äºŒå‰æ ‘çš„æ¥å£å‡½æ•°                                                                
     void PreorderTraverseNonRecursive (void (*visit)(const ElemType &));
  
-    //ÖĞĞòµİ¹é±éÀú¶ş²æÊ÷µÄ½Ó¿Úº¯Êı
+    //ä¸­åºé€’å½’éå†äºŒå‰æ ‘çš„æ¥å£å‡½æ•°
     void InorderTraverse (void (*visit)(const ElemType &));       
 
-    //ÖĞĞò·Çµİ¹é±éÀú¶ş²æÊ÷µÄ½Ó¿Úº¯                                                       
+    //ä¸­åºéé€’å½’éå†äºŒå‰æ ‘çš„æ¥å£å‡½                                                       
     void InorderTraverseNonRecursive (void (*visit)(const ElemType &)); 
 
-    //ºóĞòµİ¹é±éÀú¶ş²æÊ÷µÄ½Ó¿Úº¯Êı 
+    //ååºé€’å½’éå†äºŒå‰æ ‘çš„æ¥å£å‡½æ•° 
     void PostorderTraverse (void (*visit)(const ElemType &));    
 
-    //ºóĞò·Çµİ¹é±éÀú¶ş²æÊ÷µÄ½Ó¿Úº¯Êı
+    //ååºéé€’å½’éå†äºŒå‰æ ‘çš„æ¥å£å‡½æ•°
     void PostorderTraverseNonRecursive (void (*visit)(const ElemType &));
                                                                     
-   //²ãĞò±éÀú¶ş²æÊ÷  
+   //å±‚åºéå†äºŒå‰æ ‘  
     void LevelTraverse (void (*visit)(const ElemType &e)); 
 
-    //ÓĞÌõ¼ş²åÈë 
+    //æœ‰æ¡ä»¶æ’å…¥ 
     bool InsertChild(BTNode<ElemType> *p,const int &, BinaryTree<char> &);
 
-    //ÓĞÌõ¼şÉ¾³ı
+    //æœ‰æ¡ä»¶åˆ é™¤
     void DeleteChild (BTNode<ElemType> *p, int which);          
-	
-   //¼ÆËã¶ş²æÊ÷ÖĞµÄÒ¶×Ó½Úµã¸öÊı
+    
+   //è®¡ç®—äºŒå‰æ ‘ä¸­çš„å¶å­èŠ‚ç‚¹ä¸ªæ•°
    //int CountLeaf();
 
 
 
-//	int CountLeaf(BTNode<ElemType> *p);
+//  int CountLeaf(BTNode<ElemType> *p);
 
 
        
 private:
-    BTNode<ElemType> *m_root;                            //¶ş²æÊ÷¸ù½áµãÖ¸Õë
+    BTNode<ElemType> *m_root;                            //äºŒå‰æ ‘æ ¹ç»“ç‚¹æŒ‡é’ˆ
 
   
 
 
-    BTNode<ElemType>* _Copy( BTNode<ElemType>* );    //¸´ÖÆ¶ş²æÊ÷ 
+    BTNode<ElemType>* _Copy( BTNode<ElemType>* );    //å¤åˆ¶äºŒå‰æ ‘ 
     
-    //°´ÏÈĞò´ÎĞòÊäÈë½áµãÖµµÄ·½Ê½½¨Á¢¶ş²æÊ÷
+    //æŒ‰å…ˆåºæ¬¡åºè¾“å…¥ç»“ç‚¹å€¼çš„æ–¹å¼å»ºç«‹äºŒå‰æ ‘
     void _Create1(BTNode<ElemType>* &, ElemType ch[],const ElemType &,int &);
  
-    //ÒÑÖª¶ş²æÊ÷µÄÏÈĞò±éÀú´ÎĞò¼°ÖĞĞò±éÀú´ÎĞò£¬½¨Á¢¶ş²æÊ÷T  
+    //å·²çŸ¥äºŒå‰æ ‘çš„å…ˆåºéå†æ¬¡åºåŠä¸­åºéå†æ¬¡åºï¼Œå»ºç«‹äºŒå‰æ ‘T  
     void _Create2(BTNode<ElemType> * &,ElemType ch1[],ElemType ch2[],int ,int ,int &);   
                                                                                                        
-    void _Destroy(BTNode<ElemType>* &);                //Ïú»Ù¶ş²æÊ÷ 
+    void _Destroy(BTNode<ElemType>* &);                //é”€æ¯äºŒå‰æ ‘ 
 
-    int _Depth(BTNode<ElemType>* );                    // Çó¶ş²æÊ÷µÄÉî¶È 
+    int _Depth(BTNode<ElemType>* );                    // æ±‚äºŒå‰æ ‘çš„æ·±åº¦ 
 
-	/////////////////////ÇóÒ¶×Ó½áµãÊı½Ó¿Úº¯Êı////////////////////////////////
-	int _CountLeaf(BTNode<ElemType> *);
-	/////////////////////////////////////////////////////////////////////////
+    /////////////////////æ±‚å¶å­ç»“ç‚¹æ•°æ¥å£å‡½æ•°////////////////////////////////
+    int _CountLeaf(BTNode<ElemType> *);
+    /////////////////////////////////////////////////////////////////////////
   
-     // ·µ»Ø¶ş²æÊ÷ÖĞÔªËØÖµÎªeµÄ½áµãµÄÖ¸Õë    
+     // è¿”å›äºŒå‰æ ‘ä¸­å…ƒç´ å€¼ä¸ºeçš„ç»“ç‚¹çš„æŒ‡é’ˆ    
      BTNode<ElemType>* _Locate(BTNode<ElemType>*, const ElemType &);
 
-    //·µ»Øe½áµãµÄË«Ç×½áµãÖ¸Õë
+    //è¿”å›eç»“ç‚¹çš„åŒäº²ç»“ç‚¹æŒ‡é’ˆ
     BTNode<ElemType>* _Parent (BTNode<ElemType>*, BTNode<ElemType>*);
                                                     
-    //ÏÈĞòµİ¹é±éÀú¶ş²æÊ÷
+    //å…ˆåºé€’å½’éå†äºŒå‰æ ‘
     void _PreorderTraverse(BTNode<ElemType>* ,void (*visit)(const ElemType &e));
 
-    //ÖĞĞòµİ¹é±éÀú¶ş²æÊ÷
+    //ä¸­åºé€’å½’éå†äºŒå‰æ ‘
     void _InorderTraverse(BTNode<ElemType>* ,void (*visit)(const ElemType &e));
 
-    //ºóĞòµİ¹é±éÀú¶ş²æÊ÷
+    //ååºé€’å½’éå†äºŒå‰æ ‘
     void _PostorderTraverse(BTNode<ElemType>* ,void (*visit)(const ElemType &e));
-	void _Exchange(BTNode<ElemType> *);
+    void _Exchange(BTNode<ElemType> *);
 
-//	void_CountLeaf(BTNode<ElemType> *T, int &count);
+//  void_CountLeaf(BTNode<ElemType> *T, int &count);
     
 
 };
 
 
-//°´ÏÈĞò´ÎĞòÊäÈë½áµãÖµµÄ·½Ê½½¨Á¢¶ş²æÊ÷µÄ½Ó¿Úº¯Êı         
+//æŒ‰å…ˆåºæ¬¡åºè¾“å…¥ç»“ç‚¹å€¼çš„æ–¹å¼å»ºç«‹äºŒå‰æ ‘çš„æ¥å£å‡½æ•°         
 template<class ElemType>
-void BinaryTree<ElemType>::Create1(ElemType ch[],const ElemType & c)        //ch[]¼ÇÂ¼±äÍ¨ºóµÄÏÈĞò±éÀúĞòÁĞ£¬cÎªÖ¸¶¨ÌØÊâ×Ö·û
+void BinaryTree<ElemType>::Create1(ElemType ch[],const ElemType & c)        //ch[]è®°å½•å˜é€šåçš„å…ˆåºéå†åºåˆ—ï¼Œcä¸ºæŒ‡å®šç‰¹æ®Šå­—ç¬¦
 {
     int i = 0;
-    _Create1(m_root, ch, c, i);   // i ÊÇÏÈĞòĞòÁĞÊı×éch[]ÖĞµÄÎ»ÖÃÖ¸Ê¾Æ÷£¬³õÖµÎª0
+    _Create1(m_root, ch, c, i);   // i æ˜¯å…ˆåºåºåˆ—æ•°ç»„ch[]ä¸­çš„ä½ç½®æŒ‡ç¤ºå™¨ï¼Œåˆå€¼ä¸º0
 } 
 
 
 
-//°´ÏÈĞò´ÎĞòÊäÈë½áµãÖµµÄ·½Ê½½¨Á¢¶ş²æÊ÷T                                
+//æŒ‰å…ˆåºæ¬¡åºè¾“å…¥ç»“ç‚¹å€¼çš„æ–¹å¼å»ºç«‹äºŒå‰æ ‘T                                
 template<class ElemType>
 void BinaryTree<ElemType>::_Create1(BTNode<ElemType> * &T,ElemType ch[],const ElemType &c,int &i)
 {                 
-     if (ch[i] == c)//cÎªÌØÊâÊı¾İÓÃÒÔ±êÊ¾¿ÕÖ¸Õë 
+     if (ch[i] == c)//cä¸ºç‰¹æ®Šæ•°æ®ç”¨ä»¥æ ‡ç¤ºç©ºæŒ‡é’ˆ 
         T=NULL;
     else{
         T = new BTNode<ElemType>;
@@ -217,31 +217,31 @@ void BinaryTree<ElemType>::_Create1(BTNode<ElemType> * &T,ElemType ch[],const El
 
 
 
-//ÒÔ¶ş²æÊ÷µÄÏÈĞòºÍÖĞĞò´ÎĞò½¨Á¢¶ş²æÊ÷µÄ½Ó¿Úº¯Êı
+//ä»¥äºŒå‰æ ‘çš„å…ˆåºå’Œä¸­åºæ¬¡åºå»ºç«‹äºŒå‰æ ‘çš„æ¥å£å‡½æ•°
 template <class ElemType>
-void BinaryTree<ElemType> ::Create2(ElemType ch1[],ElemType ch2[],int n) //n¼ÇÂ¼¶ş²æÊ÷ÖĞµÄ½áµã¸öÊı£¬¼´±éÀúĞòÁĞµÄ³¤¶È
+void BinaryTree<ElemType> ::Create2(ElemType ch1[],ElemType ch2[],int n) //nè®°å½•äºŒå‰æ ‘ä¸­çš„ç»“ç‚¹ä¸ªæ•°ï¼Œå³éå†åºåˆ—çš„é•¿åº¦
 {    int i = 0;
-   _Create2( m_root,ch1,ch2,0,n-1,i); //i³õÖµÎª0
+   _Create2( m_root,ch1,ch2,0,n-1,i); //iåˆå€¼ä¸º0
 }
 
 
 
-//ÒÑÖª¶ş²æÊ÷µÄÏÈĞò±éÀú´ÎĞò¼°ÖĞĞò±éÀú´ÎĞò£¬½¨Á¢¶ş²æÊ÷T                                
+//å·²çŸ¥äºŒå‰æ ‘çš„å…ˆåºéå†æ¬¡åºåŠä¸­åºéå†æ¬¡åºï¼Œå»ºç«‹äºŒå‰æ ‘T                                
 template<class ElemType>
 void BinaryTree<ElemType> :: _Create2(BTNode<ElemType> * &T,ElemType ch1[],ElemType ch2[],int low,int high,int &k) 
- //´«Öµºó,low=0, high=n-1¾ù¼ÇÂ¼ch2[] Êı×éÖĞµÄÎ»ÖÃÏÂ±ê¡£k³õÖµÊÇ0,k¼ÇÂ¼ch1[]ÖĞ¸ù½áµãµÄÎ»ÖÃÏÂ±ê£¬
+ //ä¼ å€¼å,low=0, high=n-1å‡è®°å½•ch2[] æ•°ç»„ä¸­çš„ä½ç½®ä¸‹æ ‡ã€‚kåˆå€¼æ˜¯0,kè®°å½•ch1[]ä¸­æ ¹ç»“ç‚¹çš„ä½ç½®ä¸‹æ ‡ï¼Œ
 {   
     int i;                                              
     if(low > high)              
         T=NULL;                                           
     else{                                                    
         T=new BTNode<ElemType>;                           
-        T->data=ch1[k];                               //  ch1[]ÎªÏÈĞòĞòÁĞ£¬ch2[]ÎªÖĞĞòĞòÁĞ£¬k¼ÇÂ¼ch1[]ÖĞ¸ù½áµãµÄÎ»ÖÃÏÂ±ê
-        for ( i = low;i <= high&&ch2[i] != ch1[k];i++) ;   //  i¼ÇÂ¼ch2[]ÖĞµÄ¸ù½áµãËùÔÚµÄÎ»ÖÃÏÂ±ê
+        T->data=ch1[k];                               //  ch1[]ä¸ºå…ˆåºåºåˆ—ï¼Œch2[]ä¸ºä¸­åºåºåˆ—ï¼Œkè®°å½•ch1[]ä¸­æ ¹ç»“ç‚¹çš„ä½ç½®ä¸‹æ ‡
+        for ( i = low;i <= high&&ch2[i] != ch1[k];i++) ;   //  iè®°å½•ch2[]ä¸­çš„æ ¹ç»“ç‚¹æ‰€åœ¨çš„ä½ç½®ä¸‹æ ‡
         if(ch2[i] == ch1[k]){ 
             k++;                                                                                      
-            _Create2(T->lchild,ch1,ch2,low,i-1,k);     // k¼ÇÂ¼ÏÂÒ»¸ö×ÓÊ÷¸ù½áµãµÄÎ»ÖÃÏÂ±ê
-            _Create2(T->rchild,ch1,ch2,i+1,high,k);             // k¼ÇÂ¼ÏÂÒ»¸ö×ÓÊ÷¸ù½áµãµÄÎ»ÖÃÏÂ±ê
+            _Create2(T->lchild,ch1,ch2,low,i-1,k);     // kè®°å½•ä¸‹ä¸€ä¸ªå­æ ‘æ ¹ç»“ç‚¹çš„ä½ç½®ä¸‹æ ‡
+            _Create2(T->rchild,ch1,ch2,i+1,high,k);             // kè®°å½•ä¸‹ä¸€ä¸ªå­æ ‘æ ¹ç»“ç‚¹çš„ä½ç½®ä¸‹æ ‡
         }  
     }                                                   
 }
@@ -249,7 +249,7 @@ void BinaryTree<ElemType> :: _Create2(BTNode<ElemType> * &T,ElemType ch1[],ElemT
 
 
 
-//·µ»Ø¶ş²æÊ÷TÖĞ½áµãµÄ×óĞÖµÜ½áµãÖ¸Õë     
+//è¿”å›äºŒå‰æ ‘Tä¸­ç»“ç‚¹çš„å·¦å…„å¼Ÿç»“ç‚¹æŒ‡é’ˆ     
 template <class ElemType> 
 BTNode<ElemType>* BinaryTree<ElemType>::LeftSibling (BTNode<ElemType> *p)
 {
@@ -259,7 +259,7 @@ BTNode<ElemType>* BinaryTree<ElemType>::LeftSibling (BTNode<ElemType> *p)
         return father->lchild; 
     return NULL;
 } 
- //·µ»Ø¶ş²æÊ÷TÖĞ½áµãµÄÓÒĞÖµÜ½áµãÖ¸Õë     
+ //è¿”å›äºŒå‰æ ‘Tä¸­ç»“ç‚¹çš„å³å…„å¼Ÿç»“ç‚¹æŒ‡é’ˆ     
 template <class ElemType> 
 BTNode<ElemType>* BinaryTree<ElemType>::RightSibling(BTNode<ElemType> *p)
 {
@@ -270,28 +270,28 @@ BTNode<ElemType>* BinaryTree<ElemType>::RightSibling(BTNode<ElemType> *p)
     return NULL;
 }     
 
-// ÏÈĞòµİ¹é±éÀú¶ş²æÊ÷µÄ½Ó¿Úº¯Êı    
+// å…ˆåºé€’å½’éå†äºŒå‰æ ‘çš„æ¥å£å‡½æ•°    
 template <class ElemType>
 void BinaryTree <ElemType>::PreorderTraverse(void (*visit)(const ElemType &e))
 {
     _PreorderTraverse(m_root, visit);
 }
 
-// ÖĞĞòµİ¹é±éÀú¶ş²æÊ÷µÄ½Ó¿Úº¯Êı        
+// ä¸­åºé€’å½’éå†äºŒå‰æ ‘çš„æ¥å£å‡½æ•°        
 template <class ElemType>
 void BinaryTree <ElemType>::InorderTraverse(void (*visit)(const ElemType &e))
 {
     _InorderTraverse(m_root,visit);
 } 
 
-//ºóĞòµİ¹é±éÀú¶ş²æÊ÷µÄ½Ó¿Úº¯Êı              
+//ååºé€’å½’éå†äºŒå‰æ ‘çš„æ¥å£å‡½æ•°              
 template <class ElemType>
 void BinaryTree <ElemType>::PostorderTraverse(void (*visit)(const ElemType &e))
 {
     _PostorderTraverse(m_root,visit);
 }
     
-//whichÎª0É¾³ı¶ş²æÊ÷ÖĞp½áµãµÄ×ó×ÓÊ÷£»whichÎª1É¾³ı¶ş²æÊ÷ÖĞp½áµãµÄÓÒ×ÓÊ÷£»
+//whichä¸º0åˆ é™¤äºŒå‰æ ‘ä¸­pç»“ç‚¹çš„å·¦å­æ ‘ï¼›whichä¸º1åˆ é™¤äºŒå‰æ ‘ä¸­pç»“ç‚¹çš„å³å­æ ‘ï¼›
 template <class ElemType> 
 void BinaryTree<ElemType>::DeleteChild(BTNode<ElemType> *p, int which)
 { 
@@ -300,7 +300,7 @@ void BinaryTree<ElemType>::DeleteChild(BTNode<ElemType> *p, int which)
     else 
         _Destroy(p->rchild);
 }    
-//¸´ÖÆÒ»¿Ã×ÓÊ÷ 
+//å¤åˆ¶ä¸€æ£µå­æ ‘ 
 template <class ElemType>
 BTNode<ElemType>* BinaryTree<ElemType>::_Copy( BTNode<ElemType>* T)
 {  
@@ -316,7 +316,7 @@ BTNode<ElemType>* BinaryTree<ElemType>::_Copy( BTNode<ElemType>* T)
 }
 
 
-//Ïú»Ù¶ş²æÁ´±íĞÎÊ½µÄ¶ş²æÊ÷T 
+//é”€æ¯äºŒå‰é“¾è¡¨å½¢å¼çš„äºŒå‰æ ‘T 
 template <class ElemType>
 void BinaryTree<ElemType>::_Destroy(BTNode<ElemType>* &T)
 {
@@ -328,7 +328,7 @@ void BinaryTree<ElemType>::_Destroy(BTNode<ElemType>* &T)
     T = NULL;  
 } 
 
-//·µ»Ø¶ş²æÊ÷TÖĞÔªËØÖµÎªeµÄ½áµãµÄÖ¸Õë    
+//è¿”å›äºŒå‰æ ‘Tä¸­å…ƒç´ å€¼ä¸ºeçš„ç»“ç‚¹çš„æŒ‡é’ˆ    
 template <class ElemType>
 BTNode<ElemType>* BinaryTree<ElemType>::_Locate(BTNode<ElemType>* bt,const ElemType &e)
 {
@@ -342,7 +342,7 @@ BTNode<ElemType>* BinaryTree<ElemType>::_Locate(BTNode<ElemType>* bt,const ElemT
     q = _Locate(bt->rchild, e);
     return q;
 }
-//·µ»Ø¶ş²æÊ÷TÖĞÔªËØÖµÎªeµÄ½áµãµÄË«Ç×½áµãÖ¸Õë     
+//è¿”å›äºŒå‰æ ‘Tä¸­å…ƒç´ å€¼ä¸ºeçš„ç»“ç‚¹çš„åŒäº²ç»“ç‚¹æŒ‡é’ˆ     
 template <class ElemType>
 BTNode<ElemType>* BinaryTree<ElemType>::_Parent(BTNode<ElemType>* T, BTNode<ElemType>* p)
 {
@@ -360,7 +360,7 @@ BTNode<ElemType>* BinaryTree<ElemType>::_Parent(BTNode<ElemType>* T, BTNode<Elem
     return q;
 }
 
-//Çó¶ş²æÊ÷µÄÉî¶È     
+//æ±‚äºŒå‰æ ‘çš„æ·±åº¦     
 template <class ElemType> 
 int BinaryTree<ElemType>::_Depth(BTNode<ElemType>* T)
 {
@@ -374,22 +374,22 @@ int BinaryTree<ElemType>::_Depth(BTNode<ElemType>* T)
     return h1 > h2 ? h1 + 1 : h2 + 1;
 } 
 
-/////////////////////////////ÇóÒ¶×Ó½áµãÊı½Ó¿Úº¯Êı///////////////////////////////
+/////////////////////////////æ±‚å¶å­ç»“ç‚¹æ•°æ¥å£å‡½æ•°///////////////////////////////
 template <class ElemType>
 int _CountLeaf(BTNode<ElemType> *T) {
-	int count;
-	if(T) {
-		if((!T->lchild) && (!T->rchild)) {
-			count++;
-		}
-		_CountLeaf(T->lchild);
-		_CountLeaf(T->rchild);
-	}
-	return count;
+    int count;
+    if(T) {
+        if((!T->lchild) && (!T->rchild)) {
+            count++;
+        }
+        _CountLeaf(T->lchild);
+        _CountLeaf(T->rchild);
+    }
+    return count;
 }
 ///////////////////////////////////////////////////////////////////////////
 
-//ÏÈĞòµİ¹é±éÀú¶ş²æÊ÷         
+//å…ˆåºé€’å½’éå†äºŒå‰æ ‘         
 template <class ElemType>
 void BinaryTree<ElemType> ::_PreorderTraverse(BTNode<ElemType>* T,void (*visit)(const ElemType &e))
 {  
@@ -399,7 +399,7 @@ void BinaryTree<ElemType> ::_PreorderTraverse(BTNode<ElemType>* T,void (*visit)(
         _PreorderTraverse(T->rchild,visit);
     }  
 } 
-//ÖĞĞòµİ¹é±éÀú¶ş²æÊ÷     
+//ä¸­åºé€’å½’éå†äºŒå‰æ ‘     
 template <class ElemType>
 void BinaryTree<ElemType> ::_InorderTraverse(BTNode<ElemType>* T,void (*visit)(const ElemType &e))
 {  
@@ -409,7 +409,7 @@ void BinaryTree<ElemType> ::_InorderTraverse(BTNode<ElemType>* T,void (*visit)(c
         _InorderTraverse (T->rchild,visit);
     }  
 }
-//ºóĞòµİ¹é±éÀú¶ş²æÊ÷             
+//ååºé€’å½’éå†äºŒå‰æ ‘             
 template <class ElemType>
 void BinaryTree<ElemType> ::_PostorderTraverse(BTNode<ElemType>* T,void (*visit)(const ElemType &e))
 {  
@@ -419,12 +419,12 @@ void BinaryTree<ElemType> ::_PostorderTraverse(BTNode<ElemType>* T,void (*visit)
         visit (T->data);
     }  
 }
-// ÖĞĞò±éÀú¶ş²æÊ÷µÄ·Çµİ¹éËã·¨(ÀûÓÃÕ»)   
+// ä¸­åºéå†äºŒå‰æ ‘çš„éé€’å½’ç®—æ³•(åˆ©ç”¨æ ˆ)   
 template <class ElemType>
 void BinaryTree<ElemType> ::InorderTraverseNonRecursive(void (*visit)(const ElemType &e))
 { 
     stack<BTNode<ElemType> *> S;
-    S.push (m_root); //¸ùÖ¸Õë½øÕ»
+    S.push (m_root); //æ ¹æŒ‡é’ˆè¿›æ ˆ
     
     while (!S.empty ()) {
         BTNode<ElemType> *p;
@@ -432,12 +432,12 @@ void BinaryTree<ElemType> ::InorderTraverseNonRecursive(void (*visit)(const Elem
 
         while (p) {
             p = p->lchild;
-            S.push(p); // Ïò×ó×ßµ½¾¡Í·
+            S.push(p); // å‘å·¦èµ°åˆ°å°½å¤´
         }
         
-        S.pop(); // ¿ÕÖ¸ÕëÍËÕ»
+        S.pop(); // ç©ºæŒ‡é’ˆé€€æ ˆ
         
-        if (!S.empty()){ // ·ÃÎÊ½áµã,ÏòÓÒÒ»²½
+        if (!S.empty()){ // è®¿é—®ç»“ç‚¹,å‘å³ä¸€æ­¥
             p = S.top ();
             S.pop();
             visit(p->data);
@@ -445,7 +445,7 @@ void BinaryTree<ElemType> ::InorderTraverseNonRecursive(void (*visit)(const Elem
         }
     }
 } 
-// ²ã´Î±éÀú¶ş²æÊ÷µÄ·Çµİ¹éËã·¨(ÀûÓÃ¶ÓÁĞ)   
+// å±‚æ¬¡éå†äºŒå‰æ ‘çš„éé€’å½’ç®—æ³•(åˆ©ç”¨é˜Ÿåˆ—)   
 template <class ElemType>
 void BinaryTree<ElemType> ::LevelTraverse(void (*visit)(const ElemType &e)){
     queue<BTNode<ElemType> *> Q;
@@ -465,15 +465,15 @@ void BinaryTree<ElemType> ::LevelTraverse(void (*visit)(const ElemType &e)){
             Q.push (p->rchild);
     }
 }
-// ³õÊ¼Ìõ¼ş: ¶ş²æÊ÷m_root´æÔÚ,eÊÇm_rootÖĞÄ³¸ö½áµã,LRÎª0»ò1,ÒÔ¸´ÖÆ¶ÔÏóµÄ·½Ê½»ñµÃµÄ·Ç¿Õ¶ş²æÊ÷sÓëm_root²»Ïà½»ÇÒÓÒ×ÓÊ÷Îª¿Õ
-// ²Ù×÷½á¹û: ¸ù¾İLRÎª0»ò1,²åÈësÎªTÖĞe½áµãµÄ×ó»òÓÒ×ÓÊ÷¡£e½áµãµÄÔ­ÓĞ×ó»òÓÒ×ÓÊ÷Ôò³ÉÎªsµÄÓÒ×ÓÊ÷           
+// åˆå§‹æ¡ä»¶: äºŒå‰æ ‘m_rootå­˜åœ¨,eæ˜¯m_rootä¸­æŸä¸ªç»“ç‚¹,LRä¸º0æˆ–1,ä»¥å¤åˆ¶å¯¹è±¡çš„æ–¹å¼è·å¾—çš„éç©ºäºŒå‰æ ‘sä¸m_rootä¸ç›¸äº¤ä¸”å³å­æ ‘ä¸ºç©º
+// æ“ä½œç»“æœ: æ ¹æ®LRä¸º0æˆ–1,æ’å…¥sä¸ºTä¸­eç»“ç‚¹çš„å·¦æˆ–å³å­æ ‘ã€‚eç»“ç‚¹çš„åŸæœ‰å·¦æˆ–å³å­æ ‘åˆ™æˆä¸ºsçš„å³å­æ ‘           
 template <class ElemType> 
 bool BinaryTree<ElemType>::InsertChild(BTNode<ElemType> *p,const int &LR, BinaryTree<char> &r)
 {
     BTNode<ElemType>*q,*s;
     if(p){ 
-        q = r.Root(); //È¡¶ÔÏó¸ù½áµãÖ¸Õë 
-        s = _Copy(q);//¶ÔÏó¸´ÖÆ
+        q = r.Root(); //å–å¯¹è±¡æ ¹ç»“ç‚¹æŒ‡é’ˆ 
+        s = _Copy(q);//å¯¹è±¡å¤åˆ¶
         if (LR == 0){
             s->rchild = p->lchild;
             p->lchild = s;
@@ -487,24 +487,24 @@ bool BinaryTree<ElemType>::InsertChild(BTNode<ElemType> *p,const int &LR, Binary
 } 
 
 
-//Çó¶ş²æÊ÷µÄÒ¶×Ó½áµãÊı
+//æ±‚äºŒå‰æ ‘çš„å¶å­ç»“ç‚¹æ•°
 /* template <class ElemType>
 void BinaryTree<ElemType>::_CountLeaf(BTNode<ElemType> *T, int &count) {
-	if(T) {
-		if((!T->lchild) && (!T->rchild)) {
-			++count;
-			CoundLeaf(T->lchild, count);
-			CoundLeaf(T->rchild, count);
-		}
-	}
+    if(T) {
+        if((!T->lchild) && (!T->rchild)) {
+            ++count;
+            CoundLeaf(T->lchild, count);
+            CoundLeaf(T->rchild, count);
+        }
+    }
 }
 
 
 template <class ElemType>
 int BinaryTree<ElemType>::CountLeaf(BTNode<ElemType> *p) {
-	int count;
-	_CountLeaf(BTNode T, int &count);
-	return count;
+    int count;
+    _CountLeaf(BTNode T, int &count);
+    return count;
 }
 */
 
